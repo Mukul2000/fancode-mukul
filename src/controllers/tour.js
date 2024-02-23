@@ -4,17 +4,17 @@ const getAllTours = async () => {
     return await Tour.getAllTours();
 }
 
-const getMatchesByTourName = async params => {
-    const { name } = params;
+const getMatchesByTourId = async params => {
+    const { tourId } = params;
 
-    if (!name) {
-        throw new Error('Missing required parameter: name');
+    if (!tourId || isNaN(Number(tourId))) {
+        throw new Error('Missing or invalid required parameter: tourId');
     }
 
-    return await Tour.getMatchesByTourName(params);
+    return await Tour.getMatchesByTourId(params);
 }
 
 module.exports = {
     getAllTours: getAllTours,
-    getMatchesByTourName: getMatchesByTourName
+    getMatchesByTourId: getMatchesByTourId
 }
