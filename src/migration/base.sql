@@ -35,6 +35,18 @@ create table if not exists mydb.matches
     foreign key (tourId) references tours(id)
 );
 
+-- this is polymorphic association
+create table if not exists mydb.news
+(
+    id int auto_increment not null primary key,
+    title varchar(50) not null,
+    description varchar(300) not null,
+    linked_id int not null,
+    link_type varchar(10) not null,
+    recUpdatedAt timestamp not null default current_timestamp on update current_timestamp,
+    createdAt timestamp not null default current_timestamp
+);
+
 -- seed data
 insert ignore into mydb.sports (id, name) values (1, 'Cricket');
 insert ignore into mydb.sports (id, name) values (2, 'Football');
@@ -55,3 +67,6 @@ insert ignore into mydb.matches (name, tourId, format, startTime, endTime) value
 insert ignore into mydb.matches (name, tourId, format, startTime, endTime) values ('IND vs WI', 3, 'ODI', '2023-06-12 10:00:00', '2023-06-12 23:00:00');
 insert ignore into mydb.matches (name, tourId, format, startTime, endTime) values ('IND vs WI', 3, 'ODI', '2023-06-14 10:00:00', '2023-06-14 23:00:00');
 insert ignore into mydb.matches (name, tourId, format, startTime, endTime) values ('KER vs JFC', 4, 'soccer', '2022-04-09 18:00:00', '2022-04-09 23:00:00');
+
+insert ignore into mydb.news (title, description, linked_id, link_type) values ('Tour news', 'Boring tour', 1, 'tour');
+insert ignore into mydb.news (title, description, linked_id, link_type) values ('Tour match news', 'okay tour', 1, 'match');
